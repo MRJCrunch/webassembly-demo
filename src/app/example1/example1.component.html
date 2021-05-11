@@ -1,0 +1,39 @@
+<hr/>
+<h1>1. Simple function</h1>
+<input [(ngModel)]="leftParam1"/>
+<input [(ngModel)]="rightParam1"/>
+<button (click)="calculate1()">Calculate</button>
+<span>Result: {{result1}}</span>
+<hr/>
+
+
+<h1>2. Internal function usage</h1>
+<input [(ngModel)]="leftParam2"/>
+<button (click)="calculate2()">Calculate</button>
+<span>Result: {{result2}}</span>
+<hr/>
+
+
+<h1>3. External function usage</h1>
+<input [(ngModel)]="param3"/>
+<button (click)="calculate3()">Calculate</button>
+<span>Result: {{result3}}</span>
+<hr/>
+
+
+<h1>4. Global value</h1>
+<button (click)="calculate41()">+1 internal</button>
+<button (click)="calculate42()">+2 wasm</button>
+<span>Result: {{result4.value}}</span>
+<hr/>
+
+<h1>5. Memory</h1>
+<button (click)="calculate5()">Sum</button>
+<div>Input: [{{input5}}]</div>
+<div>Result: {{result5}}</div>
+<hr/>
+
+<h1>6. Table</h1>
+<button (click)="calculate6(0)">Call first function</button>
+<button (click)="calculate6(1)">Call second function</button>
+<hr/>
