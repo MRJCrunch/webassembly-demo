@@ -10,12 +10,12 @@ export class Example1Component implements OnInit {
   public leftParam1: number;
   public rightParam1: number;
   public result1: number;
-  private addFunc;
+  private function1;
 
   // 2
   public leftParam2: number;
   public result2: number;
-  private getResult; 
+  private function2; 
 
   // 3
   public param3;
@@ -27,16 +27,18 @@ export class Example1Component implements OnInit {
   private function4;
 
   // 5
-  public input5 = [1,2,3,4,5,6,7,8,9,10];
+  public input5 = [1,2,3,4,5];
   private memory = new WebAssembly.Memory({initial:1, maximum:10});
   public result5;
   private function5;
 
   // 6
   private function6;
+  public result6;
 
   // 7
   private function7;
+  public result7;
 
   constructor() { 
 
@@ -47,14 +49,14 @@ export class Example1Component implements OnInit {
     WebAssembly.instantiateStreaming(fetch('assets/wa/example1/1.wasm'), {})
       .then(obj => {
         const { add } = obj.instance.exports;
-        this.addFunc = add;
+        this.function1 = add;
       });
 
     // 2
     WebAssembly.instantiateStreaming(fetch('assets/wa/example1/2.wasm'), {})
       .then(obj => {
         const { getResult } = obj.instance.exports;
-        this.getResult = getResult;
+        this.function2 = getResult;
       });
 
     // 3
@@ -115,11 +117,11 @@ export class Example1Component implements OnInit {
   }
 
   calculate1() {
-    this.result1 = this.addFunc(this.leftParam1, this.rightParam1)
+    this.result1 = this.function1(this.leftParam1, this.rightParam1)
   }
 
   calculate2() {
-    this.result2 = this.getResult(this.leftParam2)
+    this.result2 = this.function2(this.leftParam2)
   }
 
   calculate3() {
@@ -141,10 +143,10 @@ export class Example1Component implements OnInit {
   }
 
   calculate6(index: number) {
-    alert(this.function6(index))
+    this.result6 = this.function6(index)
   }
 
   calculate7() {
-    alert(this.function7())
+    this.result7 = this.function7()
   }
 }
