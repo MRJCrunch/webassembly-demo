@@ -35,27 +35,30 @@ export class Example1Component implements OnInit {
   // 6
   private function6;
 
+  // 7
+  private function7;
+
   constructor() { 
 
   }
 
   ngOnInit(): void {
     // 1
-    WebAssembly.instantiateStreaming(fetch('assets/wa/1.wasm'), {})
+    WebAssembly.instantiateStreaming(fetch('assets/wa/example1/1.wasm'), {})
       .then(obj => {
         const { add } = obj.instance.exports;
         this.addFunc = add;
       });
 
     // 2
-    WebAssembly.instantiateStreaming(fetch('assets/wa/2.wasm'), {})
+    WebAssembly.instantiateStreaming(fetch('assets/wa/example1/2.wasm'), {})
       .then(obj => {
         const { getResult } = obj.instance.exports;
         this.getResult = getResult;
       });
 
     // 3
-    WebAssembly.instantiateStreaming(fetch('assets/wa/3.wasm'), {
+    WebAssembly.instantiateStreaming(fetch('assets/wa/example1/3.wasm'), {
       module: {
         externalFunction: (input) => input + 111
       }
@@ -66,7 +69,7 @@ export class Example1Component implements OnInit {
       });
 
     // 4
-    WebAssembly.instantiateStreaming(fetch('assets/wa/4.wasm'), {
+    WebAssembly.instantiateStreaming(fetch('assets/wa/example1/4.wasm'), {
       module: {
         global: this.result4
       }
@@ -77,7 +80,7 @@ export class Example1Component implements OnInit {
       });
 
     // 5
-    WebAssembly.instantiateStreaming(fetch('assets/wa/5.wasm'), {
+    WebAssembly.instantiateStreaming(fetch('assets/wa/example1/5.wasm'), {
       module: {
         memory: this.memory
       }
@@ -88,11 +91,27 @@ export class Example1Component implements OnInit {
       });
 
     // 6
-    WebAssembly.instantiateStreaming(fetch('assets/wa/6.wasm'), {})
+    WebAssembly.instantiateStreaming(fetch('assets/wa/example1/6.wasm'), {})
       .then(obj => {
         const { callByIndex } = obj.instance.exports;
         this.function6 = callByIndex;
       });
+
+    // 7
+    const importObj = {
+      module: {
+        memory : new WebAssembly.Memory({ initial: 1 }),
+        table : new WebAssembly.Table({ initial: 1, element: "anyfunc" })
+      }
+    };
+    
+    Promise.all([
+      WebAssembly.instantiateStreaming(fetch('assets/wa/example1/71.wasm'), importObj),
+      WebAssembly.instantiateStreaming(fetch('assets/wa/example1/72.wasm'), importObj)
+    ]).then((results) => {
+      const { getResult } = results[1].instance.exports;
+      this.function7 = getResult;
+    });
   }
 
   calculate1() {
@@ -123,5 +142,9 @@ export class Example1Component implements OnInit {
 
   calculate6(index: number) {
     alert(this.function6(index))
+  }
+
+  calculate7() {
+    alert(this.function7())
   }
 }
