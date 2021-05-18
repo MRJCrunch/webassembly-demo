@@ -1,1 +1,16 @@
-<p>example2 works!</p>
+<h1>1. Prime checker</h1>
+<button (click)="calculatePrimeJS()">js</button>
+<span>Result: {{primeResultJs}}</span>
+<br/>
+<br/>
+<button (click)="calculatePrimeWasm()">wasm</button>
+<span>Result: {{primeResultWasm}}</span>
+<hr/>
+
+<h1>2. Sorting</h1>
+
+<button (click)="sortArrayWithJs()">Sort array with js</button>
+<div>Time: {{sortedTimeWithJs}}</div>
+
+<button (click)="sortWithWasm()">Sort with wasm</button>
+<div>Time: {{sortedTimeWithWasm}}</div>
