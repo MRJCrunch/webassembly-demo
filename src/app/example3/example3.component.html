@@ -1,1 +1,13 @@
-<p>example3 works!</p>
+<h1>Factorial</h1>
+<button (click)="calculateFactorial()">Calculate factorial of 10</button>
+<span>Result: {{result1}}</span>
+
+<hr/>
+
+<h1>WebP</h1>
+<input type="file" accept=".jpg, .jpeg" (change)="onInputChange($event.target.files[0])">
+<br/>
+<div>JPEG:</div>
+<img #jpegImg/>
+<button (click)="encode()">Encode</button>
+<img #webpImg/>
